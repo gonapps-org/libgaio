@@ -1,0 +1,1 @@
+sudo gcc src/gaio.c -o /usr/local/lib/libgaio.so -std=gnu99 -fPIC -shared -g
