@@ -7,11 +7,15 @@ struct gaio_Io {
     union gon_c_Generic object;
     int (*read)(union gon_c_Generic, void*, int);
     int (*write)(union gon_c_Generic, void*, int);
-    int (*close)(union gon_c_Generic, void*);
+    int (*close)(union gon_c_Generic);
 };
 
-int gaio_linux_read(struct gaio_Io io, void* buffer, int readSize);
-int gaio_linux_write(struct gaio_Io io, void* buffer, int writeSize);
-int gaio_linux_close(struct gaio_Io io);
+int gaio_nop_read(union gon_c_Generic object, void* buffer, int readSize);
+int gaio_nop_write(union gon_c_Generic object, void* buffer, int readSize);
+int gaio_nop_close(union gon_c_Generic object);
+
+int gaio_linux_read(union gon_c_Generic object, void* buffer, int readSize);
+int gaio_linux_write(union gon_c_Generic object, void* buffer, int writeSize);
+int gaio_linux_close(union gon_c_Generic object);
 
 #endif
