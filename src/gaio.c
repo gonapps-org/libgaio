@@ -1,28 +1,42 @@
+#include <fcntl.h>
+#include <stdarg.h>
 #include <unistd.h>
-#include <libgon_c/gon_c_generic.h>
+#include <libgenc/genc_generic.h>
 #include "gaio.h"
 
-int gaio_nop_read(union gon_c_Generic object, void* buffer, int readSize) {
+int gaio_nop_read(union genc_Generic object, void* buffer, int readSize) {
     return 0;
 }
 
-int gaio_nop_write(union gon_c_Generic object, void* buffer, int writeSize) {
+int gaio_nop_write(union genc_Generic object, void* buffer, int writeSize) {
     return 0;
 }
 
-int gaio_nop_close(union gon_c_Generic object) {
+int gaio_nop_fcntl(union genc_Generic object, int command, int argCount, ...) {
     return 0;
 }
 
-int gaio_linux_read(union gon_c_Generic object, void* buffer, int readSize) {
+int gaio_nop_close(union genc_Generic object) {
+    return 0;
+}
+
+int gaio_linux_read(union genc_Generic object, void* buffer, int readSize) {
     return read(*((int*)object.pointer), buffer, readSize);
 }
 
-int gaio_linux_write(union gon_c_Generic object, void* buffer, int writeSize) {
+int gaio_linux_write(union genc_Generic object, void* buffer, int writeSize) {
     return write(*((int*)object.pointer), buffer, writeSize);
 }
 
-int gaio_linux_close(union gon_c_Generic object) {
+int gaio_linux_fcntl(union genc_Generic object, int command, int argCount, ...) {
+    va_list args;
+    va_start(args, argCount);
+    int returnValue = fcntl(*((int*)object.pointer), command, argCount, args);
+    va_end(args);
+    return returnValue;
+}
+
+int gaio_linux_close(union genc_Generic object) {
     int returnValue = close(*((int*)object.pointer));
     *((int*)object.pointer) = -1;
     return returnValue;

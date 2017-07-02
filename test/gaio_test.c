@@ -1,3 +1,4 @@
+#include <fcntl.h>
 #include <gaio.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -12,4 +13,6 @@ int main() {
     io.write(io.object, buf, sizeof("HELLO WORLD!\n") - 1);
     io.close = gaio_nop_close;
     io.close(io.object);
+    io.fcntl = gaio_linux_fcntl;
+    io.fcntl(io.object, F_SETFL, io.fcntl(io.object, F_GETFL, 0) | O_NONBLOCK);
 };
