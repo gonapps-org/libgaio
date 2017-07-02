@@ -5,20 +5,20 @@
 
 struct gaio_Io {
     union genc_Generic object;
-    int (*read)(union genc_Generic, void*, int);
-    int (*write)(union genc_Generic, void*, int);
-    int (*fcntl)(union genc_Generic, int, int, ...);
-    int (*close)(union genc_Generic);
+    int (*read)(struct gaio_Io*, void*, int);
+    int (*write)(struct gaio_Io*, void*, int);
+    int (*fcntl)(struct gaio_Io*, int, int, ...);
+    int (*close)(struct gaio_Io*);
 };
 
-int gaio_nop_read(union genc_Generic object, void* buffer, int readSize);
-int gaio_nop_write(union genc_Generic object, void* buffer, int readSize);
-int gaio_nop_fcntl(union genc_Generic object, int command, int argCount, ...);
-int gaio_nop_close(union genc_Generic object);
+int gaio_Nop_read(struct gaio_Io* io, void* buffer, int readSize);
+int gaio_Nop_write(struct gaio_Io* io, void* buffer, int readSize);
+int gaio_Nop_fcntl(struct gaio_Io* io, int command, int argCount, ...);
+int gaio_Nop_close(struct gaio_Io* io);
 
-int gaio_linux_read(union genc_Generic object, void* buffer, int readSize);
-int gaio_linux_write(union genc_Generic object, void* buffer, int writeSize);
-int gaio_linux_fcntl(union genc_Generic object, int command, int argCount, ...);
-int gaio_linux_close(union genc_Generic object);
+int gaio_FdPointer_read(struct gaio_Io* io, void* buffer, int readSize);
+int gaio_FdPointer_write(struct gaio_Io* io, void* buffer, int writeSize);
+int gaio_FdPointer_fcntl(struct gaio_Io* io, int command, int argCount, ...);
+int gaio_FdPointer_close(struct gaio_Io* io);
 
 #endif

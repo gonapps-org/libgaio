@@ -9,10 +9,10 @@ int main() {
     io.object.pointer = &fd;
     char* buf = "HELLO WORLD!\n";
     io.read = gaio_Nop_read;
-    io.write = gaio_fdPointer_write;
-    io.write(io.object, buf, sizeof("HELLO WORLD!\n") - 1);
+    io.write = gaio_FdPointer_write;
+    io.write(&io, buf, sizeof("HELLO WORLD!\n") - 1);
     io.close = gaio_Nop_close;
-    io.close(io.object);
-    io.fcntl = gaio_fdPointer_fcntl;
-    io.fcntl(io.object, F_SETFL, io.fcntl(io.object, F_GETFL, 0) | O_NONBLOCK);
+    io.close(&io);
+    io.fcntl = gaio_FdPointer_fcntl;
+    io.fcntl(&io, F_SETFL, io.fcntl(&io, F_GETFL, 0) | O_NONBLOCK);
 };
