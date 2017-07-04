@@ -1,5 +1,6 @@
 #include <fcntl.h>
 #include <stdarg.h>
+#include <sys/sendfile.h>
 #include <unistd.h>
 #include <libgenc/genc_generic.h>
 #include "gaio.h"
@@ -9,6 +10,10 @@ int gaio_Nop_read(struct gaio_Io* io, void* buffer, int readSize) {
 }
 
 int gaio_Nop_write(struct gaio_Io* io, void* buffer, int writeSize) {
+    return 0;
+}
+
+int gaio_Nop_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int count) {
     return 0;
 }
 
@@ -26,6 +31,10 @@ int gaio_FdPointer_read(struct gaio_Io* io, void* buffer, int readSize) {
 
 int gaio_FdPointer_write(struct gaio_Io* io, void* buffer, int writeSize) {
     return write(*((int*)io->object.pointer), buffer, writeSize);
+}
+
+int gaio_FdPointer_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int count) {
+    return sendfile(*((int*)outIo->object.pointer), *((int*)inIo->object.pointer), offset, count);
 }
 
 int gaio_FdPointer_fcntl(struct gaio_Io* io, int command, int argCount, ...) {

@@ -11,6 +11,11 @@ int main() {
     io.read = gaio_Nop_read;
     io.write = gaio_FdPointer_write;
     io.write(&io, buf, sizeof("HELLO WORLD!\n") - 1);
+    io.sendfile = gaio_FdPointer_sendfile;
+    int self = open("gaio_test.c", O_RDONLY);
+    struct gaio_Io selfIo;
+    selfIo.object.pointer = &self;
+    io.sendfile(&io, &selfIo, NULL, 1024);
     io.close = gaio_Nop_close;
     io.close(&io);
     io.fcntl = gaio_FdPointer_fcntl;
