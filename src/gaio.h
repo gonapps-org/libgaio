@@ -21,7 +21,7 @@ int gaio_Nop_fcntl(struct gaio_Io* io, int command, int argCount, ...);
 int gaio_Nop_fileno(struct gaio_Io* io);
 int gaio_Nop_close(struct gaio_Io* io);
 
-#define GAIO_INIT_NOP(io)           \
+#define GAIO_NOP_INIT(io)           \
 (io)->read = gaio_Nop_read;         \
 (io)->write = gaio_Nop_write;       \
 (io)->sendfile = gaio_Nop_sendfile; \
