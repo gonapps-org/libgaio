@@ -21,6 +21,10 @@ int gaio_Nop_fcntl(struct gaio_Io* io, int command, int argCount, ...) {
     return 0;
 }
 
+int gaio_Nop_fileno(struct gaio_Io* io) {
+    return -1;
+}
+
 int gaio_Nop_close(struct gaio_Io* io) {
     return 0;
 }
