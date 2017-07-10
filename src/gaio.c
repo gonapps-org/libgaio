@@ -56,6 +56,9 @@ int gaio_FdPointer_close(struct gaio_Io* io) {
 }
 
 int gaio_Generic_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int count) {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wincompatible-pointer-types"
     return sendfile(outIo->fileno(outIo), inIo->fileno(inIo), offset, count);
+#pragma GCC diagnostic pop
 }
 
