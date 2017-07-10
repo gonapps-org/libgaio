@@ -33,10 +33,6 @@ int gaio_FdPointer_write(struct gaio_Io* io, void* buffer, int writeSize) {
     return write(*((int*)io->object.pointer), buffer, writeSize);
 }
 
-int gaio_FdPointer_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int count) {
-    return sendfile(*((int*)outIo->object.pointer), *((int*)inIo->object.pointer), offset, count);
-}
-
 int gaio_FdPointer_fcntl(struct gaio_Io* io, int command, int argCount, ...) {
     va_list args;
     va_start(args, argCount);
@@ -50,3 +46,8 @@ int gaio_FdPointer_close(struct gaio_Io* io) {
     *((int*)io->object.pointer) = -1;
     return returnValue;
 }
+
+int gaio_Generic_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int count) {
+    return sendfile(outIo->fileno(outIo), inIo->fileno(inIo), offset, count);
+}
+

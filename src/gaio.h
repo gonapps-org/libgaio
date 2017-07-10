@@ -9,6 +9,7 @@ struct gaio_Io {
     int (*write)(struct gaio_Io*, void*, int);
     int (*sendfile)(struct gaio_Io*, struct gaio_Io*, int*, int);
     int (*fcntl)(struct gaio_Io*, int, int, ...);
+    int (*fileno)(struct gaio_Io*);
     int (*close)(struct gaio_Io*);
 };
 
