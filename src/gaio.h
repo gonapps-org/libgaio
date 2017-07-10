@@ -21,8 +21,10 @@ int gaio_Nop_close(struct gaio_Io* io);
 
 int gaio_FdPointer_read(struct gaio_Io* io, void* buffer, int readSize);
 int gaio_FdPointer_write(struct gaio_Io* io, void* buffer, int writeSize);
-int gaio_FdPointer_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int count);
 int gaio_FdPointer_fcntl(struct gaio_Io* io, int command, int argCount, ...);
+int gail_FdPointer_fileno(struct gaio_Io* io);
 int gaio_FdPointer_close(struct gaio_Io* io);
+
+int gaio_Generic_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int count);
 
 #endif
