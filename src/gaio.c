@@ -45,6 +45,10 @@ int gaio_FdPointer_fcntl(struct gaio_Io* io, int command, int argCount, ...) {
     return returnValue;
 }
 
+int gaio_FdPointer_fileno(struct gaio_Io* io) {
+    return (*((int*)io->object.pointer));
+}
+
 int gaio_FdPointer_close(struct gaio_Io* io) {
     int returnValue = close(*((int*)io->object.pointer));
     *((int*)io->object.pointer) = -1;
