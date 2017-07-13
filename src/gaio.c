@@ -29,30 +29,29 @@ int gaio_Nop_close(struct gaio_Io* io) {
     return 0;
 }
 
-int gaio_FdPointer_read(struct gaio_Io* io, void* buffer, int readSize) {
-    return read(*((int*)io->object.pointer), buffer, readSize);
+
+int gaio_Fd_read(struct gaio_Io* io, void* buffer, int readSize) {
+    return read(io->object.integer, buffer, readSize);
 }
 
-int gaio_FdPointer_write(struct gaio_Io* io, void* buffer, int writeSize) {
-    return write(*((int*)io->object.pointer), buffer, writeSize);
+int gaio_Fd_write(struct gaio_Io* io, void* buffer, int writeSize) {
+    return write(io->object.integer, buffer, writeSize);
 }
 
-int gaio_FdPointer_fcntl(struct gaio_Io* io, int command, int argCount, ...) {
+int gaio_Fd_fcntl(struct gaio_Io* io, int command, int argCount, ...) {
     va_list args;
     va_start(args, argCount);
-    int returnValue = fcntl(*((int*)io->object.pointer), command, argCount, args);
+    int returnValue = fcntl(io->object.integer, command, argCount, args);
     va_end(args);
     return returnValue;
 }
 
-int gaio_FdPointer_fileno(struct gaio_Io* io) {
-    return (*((int*)io->object.pointer));
+int gaio_Fd_fileno(struct gaio_Io* io) {
+    return io->object.integer;
 }
 
-int gaio_FdPointer_close(struct gaio_Io* io) {
-    int returnValue = close(*((int*)io->object.pointer));
-    *((int*)io->object.pointer) = -1;
-    return returnValue;
+int gaio_Fd_close(struct gaio_Io* io) {
+    return close(io->object.integer);
 }
 
 int gaio_Generic_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int count) {
