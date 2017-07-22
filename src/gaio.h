@@ -1,6 +1,7 @@
 #ifndef _GAIO_H
 #define _GAIO_H
 
+#include <sys/stat.h>
 #include <libgenc/genc_generic.h>
 
 struct gaio_Io {
