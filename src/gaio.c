@@ -1,4 +1,5 @@
 #include <fcntl.h>
+#include <sys/stat.h>
 #include <stdarg.h>
 #include <sys/sendfile.h>
 #include <unistd.h>
@@ -18,6 +19,10 @@ int gaio_Nop_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, 
 }
 
 int gaio_Nop_fcntl(struct gaio_Io* io, int command, int argCount, ...) {
+    return 0;
+}
+
+int gaio_Nop_fstat(struct gaio_Io* io, struct stat* statBuffer) {
     return 0;
 }
 
@@ -44,6 +49,10 @@ int gaio_Fd_fcntl(struct gaio_Io* io, int command, int argCount, ...) {
     int returnValue = fcntl(io->object.integer, command, argCount, args);
     va_end(args);
     return returnValue;
+}
+
+int gaio_Fd_fstat(struct gaio_Io* io, struct stat* statBuffer) {
+    return fstat(io->object.integer, statBuffer);
 }
 
 int gaio_Fd_fileno(struct gaio_Io* io) {

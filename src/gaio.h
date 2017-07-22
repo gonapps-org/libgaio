@@ -18,6 +18,7 @@ int gaio_Nop_read(struct gaio_Io* io, void* buffer, int readSize);
 int gaio_Nop_write(struct gaio_Io* io, void* buffer, int readSize);
 int gaio_Nop_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int count);
 int gaio_Nop_fcntl(struct gaio_Io* io, int command, int argCount, ...);
+int gaio_Nop_fstat(struct gaio_Io* io, struct stat* statBuffer);
 int gaio_Nop_fileno(struct gaio_Io* io);
 int gaio_Nop_close(struct gaio_Io* io);
 
@@ -26,12 +27,14 @@ int gaio_Nop_close(struct gaio_Io* io);
 (io)->write = gaio_Nop_write;       \
 (io)->sendfile = gaio_Nop_sendfile; \
 (io)->fcntl = gaio_Nop_fcntl;       \
+(io)->fstat = gaio_Nop_fstat;       \
 (io)->fileno = gaio_Nop_fileno;     \
 (io)->close = gaio_Nop_close
 
 int gaio_Fd_read(struct gaio_Io* io, void* buffer, int readSize);
 int gaio_Fd_write(struct gaio_Io* io, void* buffer, int writeSize);
 int gaio_Fd_fcntl(struct gaio_Io* io, int command, int argCount, ...);
+int gaio_Fd_fstat(struct gaio_Io* io, struct stat* statBuffer);
 int gaio_Fd_fileno(struct gaio_Io* io);
 int gaio_Fd_close(struct gaio_Io* io);
 
