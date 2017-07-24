@@ -1,0 +1,3 @@
+gcc gaio_test.c -o gaio_test -l gaio -g -Wl,-rpath /usr/local/lib
+./gaio_test
+rm gaio_test
