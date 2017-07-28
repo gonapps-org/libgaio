@@ -6,10 +6,10 @@
 
 struct gaio_Io {
     union genc_Generic object;
-    struct gaio_Io_Callbacks* callbacks;
+    struct gaio_Io_Methods* methods;
 };
 
-struct gaio_Io_Callbacks {
+struct gaio_Io_Methods {
     int (*read)(struct gaio_Io*, void*, int);
     int (*write)(struct gaio_Io*, void*, int);
     int (*sendfile)(struct gaio_Io*, struct gaio_Io*, int*, int);
@@ -27,14 +27,14 @@ int gaio_Nop_fstat(struct gaio_Io* io, struct stat* statBuffer);
 int gaio_Nop_fileno(struct gaio_Io* io);
 int gaio_Nop_close(struct gaio_Io* io);
 
-#define GAIO_NOP_INIT(callbacks)           \
-(callbacks)->read = gaio_Nop_read;         \
-(callbacks)->write = gaio_Nop_write;       \
-(callbacks)->sendfile = gaio_Nop_sendfile; \
-(callbacks)->fcntl = gaio_Nop_fcntl;       \
-(callbacks)->fstat = gaio_Nop_fstat;       \
-(callbacks)->fileno = gaio_Nop_fileno;     \
-(callbacks)->close = gaio_Nop_close
+#define GAIO_NOP_INIT(methods)           \
+(methods)->read = gaio_Nop_read;         \
+(methods)->write = gaio_Nop_write;       \
+(methods)->sendfile = gaio_Nop_sendfile; \
+(methods)->fcntl = gaio_Nop_fcntl;       \
+(methods)->fstat = gaio_Nop_fstat;       \
+(methods)->fileno = gaio_Nop_fileno;     \
+(methods)->close = gaio_Nop_close
 
 int gaio_Fd_read(struct gaio_Io* io, void* buffer, int readSize);
 int gaio_Fd_write(struct gaio_Io* io, void* buffer, int writeSize);
