@@ -2,7 +2,7 @@
 #define _GAIO_H
 
 #include <sys/stat.h>
-#include <libgenc/genc_generic.h>
+#include <libgenc/genc_Generic.h>
 
 struct gaio_Io {
     union genc_Generic object;

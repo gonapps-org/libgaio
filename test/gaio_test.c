@@ -1,5 +1,5 @@
 #include <fcntl.h>
-#include <gaio.h>
+#include "../src/gaio.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>

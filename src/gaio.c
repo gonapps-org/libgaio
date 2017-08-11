@@ -3,7 +3,7 @@
 #include <stdarg.h>
 #include <sys/sendfile.h>
 #include <unistd.h>
-#include <libgenc/genc_generic.h>
+#include <libgenc/genc_Generic.h>
 #include "gaio.h"
 
 int gaio_Nop_read(struct gaio_Io* io, void* buffer, int readSize) {
