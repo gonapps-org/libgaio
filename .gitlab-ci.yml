@@ -12,7 +12,8 @@ before_script:
   - cmake ..
   - make
   - make install
-  - cd ../../../
+  - cd ../../
+  - cd ../
 
 build:
   stage: build
