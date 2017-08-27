@@ -12,7 +12,7 @@
 
 /**
  * @brief
- * IO struct which contains real object and methods.
+ * IO object which contains real object and methods.
  */
 
 struct gaio_Io {
@@ -22,7 +22,7 @@ struct gaio_Io {
 
 /**
  * @brief
- * A struct which contains function pointers for IO.
+ * Struct which contains function pointers for IO.
  * @details
  * Each function pointers must point real function address, NULL is not allowed.
  */
@@ -37,13 +37,99 @@ struct gaio_Io_Methods {
     int (*close)(struct gaio_Io* io);
 };
 
+/**
+ * @brief
+ * Function that does nothing.
+ * @param io
+ * Pointer of IO object.
+ * @param buffer
+ * Pointer of buffer.
+ * @param readSize
+ * Reading size.
+ * @returns Always 0.
+ */
+
 int gaio_Nop_read(struct gaio_Io* io, void* buffer, int readSize);
+
+/**
+ * @brief
+ * Function that does nothing.
+ * @param io
+ * Pointer of IO object.
+ * @param buffer
+ * Pointer of buffer.
+ * @param writeSize
+ * Writing size.
+ * @returns Always 0.
+ */
+
 int gaio_Nop_write(struct gaio_Io* io, void* buffer, int writeSize);
+
+/**
+ * @brief
+ * Function that does nothing.
+ * @param outIo
+ * Pointer of output IO object.
+ * @param inIo
+ * Pointer of input IO object.
+ * @param offset
+ * Pointer of input file offset.
+ * @param sendSize
+ * Sending size.
+ * @returns Always 0.
+ */
+
 int gaio_Nop_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int sendSize);
+
+/**
+ * @brief
+ * Function that does nothing.
+ * @param io
+ * Pointer of IO object.
+ * @param command
+ * fcntl command.
+ * @returns Always 0.
+ */
+
 int gaio_Nop_fcntl(struct gaio_Io* io, int command, int varArgCount, ...);
+
+/**
+ * @brief
+ * Function that does nothing.
+ * @param io
+ * Pointer of IO object.
+ * @param statBuffer
+ * Pointer of stat.
+ * @returns Always 0.
+ */
+
 int gaio_Nop_fstat(struct gaio_Io* io, struct stat* statBuffer);
+
+/**
+ * @brief
+ * Function that does nothing.
+ * @param io
+ * Pointer of IO object.
+ * @returns Always 0.
+ */
+
 int gaio_Nop_fileno(struct gaio_Io* io);
+
+/**
+ * @brief
+ * Function that does nothing.
+ * @param io
+ * Pointer of IO object.
+ * @returns Always 0.
+ */
+
 int gaio_Nop_close(struct gaio_Io* io);
+
+/**
+ * @brief Initialize IO methods struct with nop functions.
+ * @param methods
+ * Pointer of struct gaio_Io_Methods.
+ */
 
 #define GAIO_NOP_INIT(methods)           \
 (methods)->read = gaio_Nop_read;         \
