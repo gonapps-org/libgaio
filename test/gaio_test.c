@@ -11,8 +11,8 @@
 
 static void gaio_test(void** state) {
     struct gaio_Io io;
-    struct gaio_Io_Methods methods;
-    GAIO_NOP_INIT(&methods);
+    struct gaio_Methods methods;
+    GAIO_METHODS_NOP_INIT(&methods);
     io.methods = &methods;
     int fd = STDOUT_FILENO;
     io.object.integer = fd;

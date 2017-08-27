@@ -17,7 +17,7 @@
 
 struct gaio_Io {
     union genc_Generic object;
-    struct gaio_Io_Methods* methods;
+    struct gaio_Methods* methods;
 };
 
 /**
@@ -27,7 +27,7 @@ struct gaio_Io {
  * Each function pointers must point real function address, NULL is not allowed.
  */
 
-struct gaio_Io_Methods {
+struct gaio_Methods {
     int (*read)(struct gaio_Io* io, void* buffer, int readSize);
     int (*write)(struct gaio_Io* io, void*, int writeSize);
     int (*sendfile)(struct gaio_Io* io, struct gaio_Io*, int* offset, int sendSize);
@@ -128,10 +128,10 @@ int gaio_Nop_close(struct gaio_Io* io);
 /**
  * @brief Initialize IO methods struct with nop functions.
  * @param methods
- * Pointer of struct gaio_Io_Methods.
+ * Pointer of struct gaio_Methods.
  */
 
-#define GAIO_NOP_INIT(methods)           \
+#define GAIO_METHODS_NOP_INIT(methods)           \
 (methods)->read = gaio_Nop_read;         \
 (methods)->write = gaio_Nop_write;       \
 (methods)->sendfile = gaio_Nop_sendfile; \
@@ -139,6 +139,21 @@ int gaio_Nop_close(struct gaio_Io* io);
 (methods)->fstat = gaio_Nop_fstat;       \
 (methods)->fileno = gaio_Nop_fileno;     \
 (methods)->close = gaio_Nop_close
+
+/**
+ * @brief
+ * Wrapper function for read()
+ * @details
+ * IO object should be initialize like this:
+ * io->object.integer = FILE_DESCRIPTOR
+ * @param io
+ * Pointer of IO object.
+ * @param buffer
+ * Pointer of buffer.
+ * @param readSize
+ * Reading size.
+ * @returns What read() returns.
+ */
 
 int gaio_Fd_read(struct gaio_Io* io, void* buffer, int readSize);
 int gaio_Fd_write(struct gaio_Io* io, void* buffer, int writeSize);
