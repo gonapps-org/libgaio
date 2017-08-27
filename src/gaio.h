@@ -156,10 +156,80 @@ int gaio_Nop_close(struct gaio_Io* io);
  */
 
 int gaio_Fd_read(struct gaio_Io* io, void* buffer, int readSize);
+
+/**
+ * @brief
+ * Wrapper function for write()
+ * @details
+ * IO object should be initialize like this:
+ * io->object.integer = FILE_DESCRIPTOR
+ * @param io
+ * Pointer of IO object.
+ * @param buffer
+ * Pointer of buffer.
+ * @param writeSize
+ * Write size.
+ * @returns What write() returns.
+ */
+
 int gaio_Fd_write(struct gaio_Io* io, void* buffer, int writeSize);
-int gaio_Fd_fcntl(struct gaio_Io* io, int command, int argCount, ...);
+
+/**
+ * @brief
+ * Wrapper function for fcntl()
+ * @details
+ * IO object should be initialize like this:
+ * io->object.integer = FILE_DESCRIPTOR
+ * @param io
+ * Pointer of IO object.
+ * @param command
+ * fcntl() command.
+ * @param varArgCount
+ * varArgCount.
+ * @returns What fcntl() returns.
+ */
+
+int gaio_Fd_fcntl(struct gaio_Io* io, int command, int varArgCount, ...);
+
+/**
+ * @brief
+ * Wrapper function for fstat()
+ * @details
+ * IO object should be initialize like this:
+ * io->object.integer = FILE_DESCRIPTOR
+ * @param io
+ * Pointer of IO object.
+ * @param statBuffer
+ * Pointer of struct stat
+ * @returns What fstat() returns.
+ */
+
 int gaio_Fd_fstat(struct gaio_Io* io, struct stat* statBuffer);
+
+/**
+ * @brief
+ * Wrapper function for fileno()
+ * @details
+ * IO object should be initialize like this:
+ * io->object.integer = FILE_DESCRIPTOR
+ * @param io
+ * Pointer of IO object.
+ * @returns What fileno() returns.
+ */
+
 int gaio_Fd_fileno(struct gaio_Io* io);
+
+/**
+ * @brief
+ * Wrapper function for close()
+ * @details
+ * IO object should be initialize like this:
+ * io->object.integer = FILE_DESCRIPTOR
+ * @param io
+ * Pointer of IO object.
+ * @returns What close() returns.
+ */
+
 int gaio_Fd_close(struct gaio_Io* io);
 
 int gaio_Generic_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int count);

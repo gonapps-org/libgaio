@@ -34,7 +34,6 @@ int gaio_Nop_close(struct gaio_Io* io) {
     return 0;
 }
 
-
 int gaio_Fd_read(struct gaio_Io* io, void* buffer, int readSize) {
     return read(io->object.integer, buffer, readSize);
 }
