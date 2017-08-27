@@ -11,7 +11,8 @@
  */
 
 /**
- * @brief IO struct which contains real object and methods.
+ * @brief
+ * IO struct which contains real object and methods.
  */
 
 struct gaio_Io {
@@ -20,25 +21,26 @@ struct gaio_Io {
 };
 
 /**
- * @brief A struct which contains function pointers for IO.
+ * @brief
  * A struct which contains function pointers for IO.
+ * @details
  * Each function pointers must point real function address, NULL is not allowed.
  */
 
 struct gaio_Io_Methods {
-    int (*read)(struct gaio_Io*, void*, int);
-    int (*write)(struct gaio_Io*, void*, int);
-    int (*sendfile)(struct gaio_Io*, struct gaio_Io*, int*, int);
-    int (*fcntl)(struct gaio_Io*, int, int, ...);
-    int (*fstat)(struct gaio_Io*, struct stat* statBuffer);
-    int (*fileno)(struct gaio_Io*);
-    int (*close)(struct gaio_Io*);
+    int (*read)(struct gaio_Io* io, void* buffer, int readSize);
+    int (*write)(struct gaio_Io* io, void*, int writeSize);
+    int (*sendfile)(struct gaio_Io* io, struct gaio_Io*, int* offset, int sendSize);
+    int (*fcntl)(struct gaio_Io* io, int command, int varArgCount, ...);
+    int (*fstat)(struct gaio_Io* io, struct stat* statBuffer);
+    int (*fileno)(struct gaio_Io* io);
+    int (*close)(struct gaio_Io* io);
 };
 
 int gaio_Nop_read(struct gaio_Io* io, void* buffer, int readSize);
-int gaio_Nop_write(struct gaio_Io* io, void* buffer, int readSize);
-int gaio_Nop_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int count);
-int gaio_Nop_fcntl(struct gaio_Io* io, int command, int argCount, ...);
+int gaio_Nop_write(struct gaio_Io* io, void* buffer, int writeSize);
+int gaio_Nop_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int sendSize);
+int gaio_Nop_fcntl(struct gaio_Io* io, int command, int varArgCount, ...);
 int gaio_Nop_fstat(struct gaio_Io* io, struct stat* statBuffer);
 int gaio_Nop_fileno(struct gaio_Io* io);
 int gaio_Nop_close(struct gaio_Io* io);
