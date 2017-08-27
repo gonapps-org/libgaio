@@ -4,10 +4,26 @@
 #include <sys/stat.h>
 #include <libgenc/genc_Generic.h>
 
+/**
+ * @file gaio.h
+ * @author Byeonggon Lee
+ * @brief libgaio header file.
+ */
+
+/**
+ * @brief IO struct which contains real object and methods.
+ */
+
 struct gaio_Io {
     union genc_Generic object;
     struct gaio_Io_Methods* methods;
 };
+
+/**
+ * @brief A struct which contains function pointers for IO.
+ * A struct which contains function pointers for IO.
+ * Each function pointers must point real function address, NULL is not allowed.
+ */
 
 struct gaio_Io_Methods {
     int (*read)(struct gaio_Io*, void*, int);
