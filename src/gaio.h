@@ -120,7 +120,7 @@ int gaio_Nop_fileno(struct gaio_Io* io);
  * Function that does nothing.
  * @param io
  * Pointer of IO object.
- * @returns Always 0.
+ * @returns Always -1.
  */
 
 int gaio_Nop_close(struct gaio_Io* io);
@@ -142,7 +142,7 @@ int gaio_Nop_close(struct gaio_Io* io);
 
 /**
  * @brief
- * Wrapper function for read()
+ * Wrapper function for read().
  * @details
  * IO object should be initialize like this:
  * io->object.integer = FILE_DESCRIPTOR
@@ -159,7 +159,7 @@ int gaio_Fd_read(struct gaio_Io* io, void* buffer, int readSize);
 
 /**
  * @brief
- * Wrapper function for write()
+ * Wrapper function for write().
  * @details
  * IO object should be initialize like this:
  * io->object.integer = FILE_DESCRIPTOR
@@ -176,7 +176,7 @@ int gaio_Fd_write(struct gaio_Io* io, void* buffer, int writeSize);
 
 /**
  * @brief
- * Wrapper function for fcntl()
+ * Wrapper function for fcntl().
  * @details
  * IO object should be initialize like this:
  * io->object.integer = FILE_DESCRIPTOR
@@ -193,7 +193,7 @@ int gaio_Fd_fcntl(struct gaio_Io* io, int command, int varArgCount, ...);
 
 /**
  * @brief
- * Wrapper function for fstat()
+ * Wrapper function for fstat().
  * @details
  * IO object should be initialize like this:
  * io->object.integer = FILE_DESCRIPTOR
@@ -208,7 +208,7 @@ int gaio_Fd_fstat(struct gaio_Io* io, struct stat* statBuffer);
 
 /**
  * @brief
- * Wrapper function for fileno()
+ * Wrapper function for fileno().
  * @details
  * IO object should be initialize like this:
  * io->object.integer = FILE_DESCRIPTOR
@@ -221,7 +221,7 @@ int gaio_Fd_fileno(struct gaio_Io* io);
 
 /**
  * @brief
- * Wrapper function for close()
+ * Wrapper function for close().
  * @details
  * IO object should be initialize like this:
  * io->object.integer = FILE_DESCRIPTOR
@@ -231,6 +231,21 @@ int gaio_Fd_fileno(struct gaio_Io* io);
  */
 
 int gaio_Fd_close(struct gaio_Io* io);
+
+/**
+ * @brief
+ * Wrapper function for sendfile().
+ * @details
+ * IO object should support fileno() method.
+ * @param outIo
+ * Pointer of IO object.
+ * @param inIo
+ * Pointer of IO object.
+ * @param offset
+ * Offset of inIo.
+ * @param count
+ * Count of bytes to send.
+ */
 
 int gaio_Generic_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int count);
 
