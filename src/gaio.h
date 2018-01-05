@@ -131,7 +131,7 @@ int gaio_Nop_close(struct gaio_Io* io);
  * Pointer of struct gaio_Methods.
  */
 
-#define GAIO_METHODS_NOP_INIT(methods)           \
+#define GAIO_METHODS_NOP_INIT(methods)   \
 (methods)->read = gaio_Nop_read;         \
 (methods)->write = gaio_Nop_write;       \
 (methods)->sendfile = gaio_Nop_sendfile; \
