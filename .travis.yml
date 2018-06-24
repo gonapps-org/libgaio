@@ -3,7 +3,12 @@ sudo: required
 language: c
 compiler:
   - gcc
+install:
+  - sudo apt-get install libcmocka-dev
 before_script:
+  - cmake -version
+  - make --version 
+  - gcc --version
   - mkdir build
   - cd build
   - cmake ..
