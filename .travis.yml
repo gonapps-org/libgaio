@@ -12,7 +12,7 @@ before_install:
   - cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
   - cd ../../
 
-  - git clone https://github.com/vinbero-server/libgenc
+  - git clone https://github.com/vinbero/libgenc
   - cd libgenc
   - mkdir build
   - cd build
