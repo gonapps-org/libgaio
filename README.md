@@ -1,3 +1,3 @@
-libgaio https://github.com/vinbero?tab=overview&from=2016-05-12
+libgaio [![Build Status](https://travis-ci.org/vinbero/libgaio.svg?branch=master)](https://travis-ci.org/vinbero/libgaio)
 =======
 Generic Abstract IO library
