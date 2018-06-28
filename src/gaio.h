@@ -31,7 +31,7 @@ struct gaio_Methods {
     int (*read)(struct gaio_Io* io, void* buffer, int readSize);
     int (*write)(struct gaio_Io* io, void*, int writeSize);
     int (*sendfile)(struct gaio_Io* io, struct gaio_Io*, int* offset, int sendSize);
-    int (*fcntl)(struct gaio_Io* io, int command, int varArgCount, ...);
+    int (*fcntl)(struct gaio_Io* io, int command, ...);
     int (*fstat)(struct gaio_Io* io, struct stat* statBuffer);
     int (*fileno)(struct gaio_Io* io);
     int (*close)(struct gaio_Io* io);
@@ -40,11 +40,11 @@ struct gaio_Methods {
 /**
  * @brief
  * Function that does nothing.
- * @param io
+ * @param[in] io
  * Pointer of IO object.
- * @param buffer
+ * @param[in] buffer
  * Pointer of buffer.
- * @param readSize
+ * @param[in] readSize
  * Reading size.
  * @returns Always 0.
  */
@@ -54,11 +54,11 @@ int gaio_Nop_read(struct gaio_Io* io, void* buffer, int readSize);
 /**
  * @brief
  * Function that does nothing.
- * @param io
+ * @param[in] io
  * Pointer of IO object.
- * @param buffer
+ * @param[in] buffer
  * Pointer of buffer.
- * @param writeSize
+ * @param[in] writeSize
  * Writing size.
  * @returns Always 0.
  */
@@ -68,13 +68,13 @@ int gaio_Nop_write(struct gaio_Io* io, void* buffer, int writeSize);
 /**
  * @brief
  * Function that does nothing.
- * @param outIo
+ * @param[in] outIo
  * Pointer of output IO object.
- * @param inIo
+ * @param[in] inIo
  * Pointer of input IO object.
- * @param offset
+ * @param[in,out] offset
  * Pointer of input file offset.
- * @param sendSize
+ * @param[in] sendSize
  * Sending size.
  * @returns Always 0.
  */
@@ -84,14 +84,16 @@ int gaio_Nop_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, 
 /**
  * @brief
  * Function that does nothing.
- * @param io
+ * @param[in] io
  * Pointer of IO object.
- * @param command
+ * @param[in] command
  * fcntl command.
+ * @param[in] ...
+ * Varadic arguments to pass.
  * @returns Always 0.
  */
 
-int gaio_Nop_fcntl(struct gaio_Io* io, int command, int varArgCount, ...);
+int gaio_Nop_fcntl(struct gaio_Io* io, int command, ...);
 
 /**
  * @brief
@@ -184,12 +186,10 @@ int gaio_Fd_write(struct gaio_Io* io, void* buffer, int writeSize);
  * Pointer of IO object.
  * @param command
  * fcntl() command.
- * @param varArgCount
- * varArgCount.
  * @returns What fcntl() returns.
  */
 
-int gaio_Fd_fcntl(struct gaio_Io* io, int command, int varArgCount, ...);
+int gaio_Fd_fcntl(struct gaio_Io* io, int command, ...);
 
 /**
  * @brief

@@ -18,7 +18,7 @@ int gaio_Nop_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, 
     return 0;
 }
 
-int gaio_Nop_fcntl(struct gaio_Io* io, int command, int argCount, ...) {
+int gaio_Nop_fcntl(struct gaio_Io* io, int command, ...) {
     return 0;
 }
 
@@ -42,10 +42,10 @@ int gaio_Fd_write(struct gaio_Io* io, void* buffer, int writeSize) {
     return write(io->object.integer, buffer, writeSize);
 }
 
-int gaio_Fd_fcntl(struct gaio_Io* io, int command, int argCount, ...) {
+int gaio_Fd_fcntl(struct gaio_Io* io, int command, ...) {
     va_list args;
-    va_start(args, argCount);
-    int returnValue = fcntl(io->object.integer, command, argCount, args);
+    va_start(args, command);
+    int returnValue = fcntl(io->object.integer, command, args);
     va_end(args);
     return returnValue;
 }
