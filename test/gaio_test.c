@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 
 static void gaio_test(void** state) {
     struct gaio_Io io;
@@ -19,17 +20,16 @@ static void gaio_test(void** state) {
     io.methods->write = gaio_Fd_write;
     io.methods->fileno = gaio_Fd_fileno;
     char* buf = "HELLO WORLD!\n";
-    io.methods->write(&io, buf, sizeof("HELLO WORLD!\n") - 1);
+    assert_int_not_equal(io.methods->write(&io, buf, sizeof("HELLO WORLD!\n") - 1), -1);
     io.methods->sendfile = gaio_Generic_sendfile;
     int self = open(__FILE__, O_RDONLY);
     struct gaio_Io selfIo;
-    selfIo.object.pointer = &self;
+    selfIo.object.integer = self;
     selfIo.methods = &methods;
-    io.methods->sendfile(&io, &selfIo, NULL, 1024);
+    assert_int_not_equal(io.methods->sendfile(&io, &selfIo, NULL, 1024), -1);
     io.methods->close = gaio_Nop_close;
-    io.methods->close(&io);
-    io.methods->fcntl = gaio_Fd_fcntl;
-    io.methods->fcntl(&io, F_SETFL, io.methods->fcntl(&io, F_GETFL, 0) | O_NONBLOCK);
+    assert_int_equal(io.methods->close(&io), 0);
+    assert_int_not_equal(fcntl(io.methods->fileno(&io), F_SETFL, fcntl(io.methods->fileno(&io), F_GETFL, 0) | O_NONBLOCK), -1);
 }
 
 int main() {

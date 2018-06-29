@@ -30,8 +30,7 @@ struct gaio_Io {
 struct gaio_Methods {
     int (*read)(struct gaio_Io* io, void* buffer, int readSize);
     int (*write)(struct gaio_Io* io, void*, int writeSize);
-    int (*sendfile)(struct gaio_Io* io, struct gaio_Io*, int* offset, int sendSize);
-    int (*fcntl)(struct gaio_Io* io, int command, ...);
+    int (*sendfile)(struct gaio_Io* io, struct gaio_Io*, off_t* offset, int sendSize);
     int (*fstat)(struct gaio_Io* io, struct stat* statBuffer);
     int (*fileno)(struct gaio_Io* io);
     int (*close)(struct gaio_Io* io);
@@ -79,21 +78,7 @@ int gaio_Nop_write(struct gaio_Io* io, void* buffer, int writeSize);
  * @returns Always 0.
  */
 
-int gaio_Nop_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int sendSize);
-
-/**
- * @brief
- * Function that does nothing.
- * @param[in] io
- * Pointer of IO object.
- * @param[in] command
- * fcntl command.
- * @param[in] ...
- * Varadic arguments to pass.
- * @returns Always 0.
- */
-
-int gaio_Nop_fcntl(struct gaio_Io* io, int command, ...);
+int gaio_Nop_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, off_t* offset, int sendSize);
 
 /**
  * @brief
@@ -137,7 +122,6 @@ int gaio_Nop_close(struct gaio_Io* io);
 (methods)->read = gaio_Nop_read;         \
 (methods)->write = gaio_Nop_write;       \
 (methods)->sendfile = gaio_Nop_sendfile; \
-(methods)->fcntl = gaio_Nop_fcntl;       \
 (methods)->fstat = gaio_Nop_fstat;       \
 (methods)->fileno = gaio_Nop_fileno;     \
 (methods)->close = gaio_Nop_close
@@ -175,21 +159,6 @@ int gaio_Fd_read(struct gaio_Io* io, void* buffer, int readSize);
  */
 
 int gaio_Fd_write(struct gaio_Io* io, void* buffer, int writeSize);
-
-/**
- * @brief
- * Wrapper function for fcntl().
- * @details
- * IO object should be initialize like this:
- * io->object.integer = FILE_DESCRIPTOR
- * @param io
- * Pointer of IO object.
- * @param command
- * fcntl() command.
- * @returns What fcntl() returns.
- */
-
-int gaio_Fd_fcntl(struct gaio_Io* io, int command, ...);
 
 /**
  * @brief
@@ -247,6 +216,6 @@ int gaio_Fd_close(struct gaio_Io* io);
  * Count of bytes to send.
  */
 
-int gaio_Generic_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, int* offset, int count);
+int gaio_Generic_sendfile(struct gaio_Io* outIo, struct gaio_Io* inIo, off_t* offset, int count);
 
 #endif
