@@ -1,2 +1,2 @@
-# libgaio [![Build Status](https://travis-ci.org/vinbero/libgaio.svg?branch=master)](https://travis-ci.org/vinbero/libgaio)
+# libgaio [![Build Status](https://travis-ci.org/vinbero/libgaio.svg?branch=master)](https://travis-ci.org/gonapps-org/libgaio)
 Generic Abstract IO library
