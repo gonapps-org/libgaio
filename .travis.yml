@@ -1,17 +1,10 @@
-dist: trusty
+dist: xenial
 sudo: required
 language: c
 compiler:
   - gcc
 
 before_install:
-  - git clone git://git.cryptomilk.org/projects/cmocka.git 
-  - cd cmocka
-  - mkdir build
-  - cd build
-  - cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
-  - cd ../../
-
   - git clone https://github.com/gonapps-org/libgenc
   - cd libgenc
   - mkdir build
@@ -20,11 +13,7 @@ before_install:
   - cd ../../
 
 install:
-  - cd cmocka/build
-  - make
-  - sudo make install
-  - cd ../../
-
+  - sudo apt-get install -y uthash-dev libcmocka-dev
   - cd libgenc/build
   - make
   - sudo make install
