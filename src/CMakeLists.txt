@@ -13,6 +13,23 @@ set_target_properties(
 
 install(
     TARGETS gaio
+    EXPORT gaio-targets
     LIBRARY DESTINATION lib
     PUBLIC_HEADER DESTINATION include
 )
+
+install(
+    EXPORT gaio-targets
+    NAMESPACE gaio::
+    FILE gaio-config.cmake
+    DESTINATION lib/cmake/gaio
+)
+
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+    gaio-config-version.cmake
+    VERSION ${version}
+    COMPATIBILITY SameMinorVersion
+)
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/gaio-config-version.cmake DESTINATION lib/cmake/gaio)
