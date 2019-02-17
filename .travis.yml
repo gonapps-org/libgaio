@@ -5,7 +5,7 @@ compiler:
   - gcc
 
 before_install:
-  - git clone https://github.com/gonapps-org/libgenc
+  - git clone --recurse-submodules -j8 https://github.com/gonapps-org/libgenc
   - cd libgenc
   - mkdir build
   - cd build
